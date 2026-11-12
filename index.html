@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zhasgyesha | Orchestral Arranger &amp; Music Producer</title>
+<link rel="icon" type="image/jpg" href="cms.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#191919;--card:#252525;--line:#2f2f2f;--text:#ebebeb;--muted:#9b9b9b;--accent:#2a9d8f;
+--brown:#6b4a36;--gray:#454545;--blue:#2f5d8a;--green:#2f6b4a;--gold:#7a5f1f;--purple:#5b3f86}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Exo 2",system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.6}
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+section{padding:56px 0}
+h1{font-size:clamp(2rem,5vw,3rem);margin:0 0 32px;letter-spacing:-.01em}
+h2{font-size:1.9rem;margin:0 0 12px}
+hr{border:0;border-top:1px solid var(--line);margin:0 0 28px}
+a{color:inherit}
+button,input,select{font-family:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* hero */
+.hero{display:grid;grid-template-columns:260px 1fr;gap:40px;align-items:start}
+.photo img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:4px;background:#2b3a2e;display:block}
+.caption{display:inline-block;margin-top:14px;background:#4a3f23;padding:2px 6px;border-radius:3px;font-weight:500}
+.hero p{margin:0 0 18px;max-width:68ch}
+.hero em{background:#1f4a45;font-style:italic;padding:0 2px}
+.links{display:flex;flex-direction:column;align-items:flex-start;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:9px 16px;border:1px solid var(--line);border-radius:8px;text-decoration:none;font-weight:600;background:transparent;color:var(--text);cursor:pointer;font-size:1rem}
+.btn:hover{background:var(--card)}
+
+/* tabs */
+.tabs{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+.tab{border:0;background:transparent;color:var(--muted);padding:9px 16px;border-radius:999px;font-size:1rem;font-weight:500;cursor:pointer}
+.tab:hover{background:var(--card)}
+.tab[aria-selected="true"]{background:var(--card);color:var(--text)}
+
+/* cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px}
+.grid.projects{grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
+.card.clickable{cursor:pointer}
+.card.clickable:hover{border-color:var(--accent)}
+.cover{aspect-ratio:2/1;background:linear-gradient(135deg,#3a2f4a,#1f4a45);overflow:hidden}
+.card.vid .cover{aspect-ratio:4/5}
+.skill .cover{aspect-ratio:3/2}
+.cover img,.cover video{width:100%;height:100%;object-fit:cover;display:block}
+.projects .cover{aspect-ratio:4/3;background:#151515}
+.projects .cover img{object-fit:contain}
+.cover video{pointer-events:none}
+.body{padding:16px;display:flex;flex-direction:column;gap:8px;flex:1}
+.card h3{margin:0;font-size:1.05rem}
+.date{color:var(--muted);font-size:.85rem}
+.desc{margin:0;color:#cfcfcf;font-size:.92rem}
+.hint{color:var(--accent);font-size:.85rem;font-weight:500}
+.drive{font-size:.85rem;color:var(--muted)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:6px}
+.tag{font-size:.8rem;padding:2px 8px;border-radius:4px;background:var(--gray)}
+.t-brown{background:var(--brown)}.t-blue{background:var(--blue)}.t-green{background:var(--green)}.t-gold{background:var(--gold)}.t-purple{background:var(--purple)}.t-gray{background:var(--gray)}
+.empty{color:var(--muted);padding:24px 0}
+
+/* popup detail */
+.modal{position:fixed;inset:0;background:#000c;display:none;align-items:center;justify-content:center;padding:20px;z-index:50}
+.modal.open{display:flex}
+.sheet{position:relative;background:#202020;border:1px solid var(--line);border-radius:12px;max-width:960px;width:100%;max-height:92vh;overflow:auto}
+.x{position:absolute;top:10px;right:12px;z-index:2;width:34px;height:34px;border:0;border-radius:50%;background:#000a;color:var(--text);font-size:1.4rem;line-height:1;cursor:pointer}
+.banner{height:170px;background:linear-gradient(135deg,#3a2f4a,#1f4a45);overflow:hidden}
+.banner img{width:100%;height:100%;object-fit:cover;display:block}
+.content{padding:28px clamp(20px,8vw,110px) 36px}
+.content h3{font-size:clamp(1.6rem,4vw,2.4rem);line-height:1.2;margin:0 0 22px;padding-right:30px}
+.meta{display:grid;grid-template-columns:150px 1fr;gap:12px 8px;align-items:center;font-weight:500}
+.k{color:var(--muted);font-size:.9rem;font-weight:500}
+.sec{margin-top:28px}
+.tiles{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px}
+.tile{width:170px;height:100px;border:1px solid var(--line);border-radius:8px;background:transparent;color:var(--text);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:8px;text-align:center;font-size:.95rem;text-decoration:none;cursor:pointer}
+.tile:hover{background:#2a2a2a}
+.tile[aria-pressed="true"]{border-color:var(--accent);background:#1b3a36}
+.tile .ic{font-size:1.4rem}
+.stage{margin-top:16px}
+.stage video{width:100%;max-height:70vh;border-radius:8px;background:#000;display:block}
+.stage audio{width:100%}
+.detail{white-space:pre-line;margin-top:10px;line-height:1.7;color:#dcdcdc}
+
+footer{border-top:1px solid var(--line);padding:32px 0;color:var(--muted);font-size:.9rem}
+@media(max-width:760px){.meta{grid-template-columns:100px 1fr}.hero{grid-template-columns:1fr}.photo{max-width:260px}section{padding:40px 0}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<main class="wrap">
+
+<section id="home">
+  <h1>Hi, I’m Zhasgyesha</h1>
+  <div class="hero">
+    <div class="photo">
+      <img src="gans2.jpg" alt="Foto profil Zhasgyesha" onerror="this.removeAttribute('src')">
+      <span class="caption">Orchestral Arranger, Guitarist, Music Producer</span>
+    </div>
+    <div>
+      <p>An orchestral arranger, guitarist, and music producer based in Surabaya, Indonesia. I specialize in creating rich, expressive arrangements from sweeping string sections and full orchestral scores to contemporary pop and cinematic productions.</p>
+      <p>My work spans multiple genres and approaches: re-composing classical masterpieces, arranging modern pop songs with orchestral depth, and producing original music released independently. One of my originals, <em>In Another Lifetime</em>, is now available on Spotify featuring a full orchestral arrangement built entirely from scratch.</p>
+      <p>Here are some projects I have worked on!</p>
+      <div class="links">
+        <a class="btn" href="https://www.instagram.com/_leannt_/" target="_blank" rel="noopener">📷 Instagram</a>
+        <a class="btn" href="https://open.spotify.com/track/3tXuhYjYuvNGubveLnMP67?si=399abc26e39d4d4f" target="_blank" rel="noopener">🎵 In Another Lifetime</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <h2>Skills</h2><hr>
+  <div class="tabs" role="tablist" id="skillTabs">
+    <button class="tab" role="tab" aria-selected="true" data-set="skills">Skills</button>
+    <button class="tab" role="tab" aria-selected="false" data-set="tools">Tools</button>
+  </div>
+  <div class="grid" id="skillGrid"></div>
+</section>
+
+<section id="projects">
+  <h2>Project Portfolio</h2><hr>
+  <div class="tabs" role="tablist" id="catTabs">
+    <button class="tab" role="tab" aria-selected="true" data-cat="main">Main Project</button>
+    <button class="tab" role="tab" aria-selected="false" data-cat="guitar">Guitar</button>
+    <button class="tab" role="tab" aria-selected="false" data-cat="dummy">Dummy Project</button>
+  </div>
+  <div class="grid projects" id="projectGrid"></div>
+</section>
+
+</main>
+
+<footer><div class="wrap">© 2026 Zhasgyesha. Surabaya, Indonesia.</div></footer>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+  <div class="sheet">
+    <button class="x" id="mClose" aria-label="Tutup">×</button>
+    <div class="banner" id="mBanner"></div>
+    <div class="content">
+      <h3 id="mTitle"></h3>
+      <div class="meta">
+        <span class="k">🕒 Created</span><span id="mDate"></span>
+        <span class="k">☰ Tags</span><div class="tags" id="mTags" style="margin:0;padding:0"></div>
+      </div>
+      <div class="sec" id="mFilesSec">
+        <div class="k">📎 Files &amp; media</div>
+        <div class="tiles" id="mFiles"></div>
+        <div class="stage" id="mStage"></div>
+      </div>
+      <div class="sec">
+        <div class="k">≡ Description</div>
+        <div class="detail" id="mDesc"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* =====================================================
+   EDIT DI SINI
+   ===================================================== */
+
+/* Skills dan Tools.
+   image : foto kartu, mis. "images/skills/orchestration.jpg" (kalau kosong atau tidak ketemu, tampil gradient) */
+const skillData = {
+  skills: [
+    {image:"orchestra.jpg", icon:"🎻", title:"Orchestration",     text:"Crafting full orchestral scores with attention to balance, texture, and voicing.", tag:"Orchestration", color:"blue"},
+    {image:"midi.jpg",          icon:"🎹", title:"Midi",              text:"Precise, expressive MIDI programming that keeps virtual instruments sounding alive.", tag:"Midi-Programming", color:"gray"},
+    {image:"partitur.jpg",     icon:"✍️", title:"Music Composing",   text:"Writing original music across genres.", tag:"Music Composing", color:"green"},
+    {image:"musicAr.jpg",   icon:"🎼", title:"Music Arrangement", text:"Transforming existing songs or ideas into fresh, fully developed arrangements.", tag:"Arrangement", color:"gold"},
+    {image:"musicPro.jpg",      icon:"🎚️", title:"Music Producer",    text:"End-to-end music production from idea to final master.", tag:"Music Producer", color:"purple"}
+  ],
+  tools: [
+    {image:"ableton.jpg",     icon:"🎛️", title:"Ableton",     text:"Where every project comes together: MIDI programming, arrangement, mixing, and mastering", tag:"DAW", color:"blue"},
+    {image:"vien.jpg", icon:"🎻", title:"Vienna Symphonic Library", text:"The orchestral sample library behind my string, woodwind, brass, harp, and percussion sections", tag:"Sample Library", color:"brown"},
+    {image:"tele.jpg",  icon:"🎸", title:"Squier Telecaster",        text:"My go-to guitar for playing with the band and recording", tag:"Instrument", color:"gray"}
+  ]
+};
+
+/* Project.
+   category : "main" | "guitar" | "dummy"
+   cover    : gambar thumbnail (mis. "Waltzno2.jpg") ATAU file video (.mp4).
+              Kalau berupa video, thumbnail diambil otomatis dari satu frame video itu.
+   thumbAt  : (opsional, khusus cover video) detik berapa frame diambil. Default 1.
+   media    : daftar file yang bisa dipilih saat kotak diklik. Format: {label:"Nama pilihan", file:"path"}
+              Boleh MP4 atau MP3, jumlahnya bebas. Kosongkan ( [] ) kalau belum ada file.
+   detail   : deskripsi lengkap yang tampil di popup (opsional, kalau kosong dipakai desc). Baris baru pakai \n
+   link     : link Google Drive ("" kalau tidak ada)
+   tags     : [teks, warna]  warna: brown, blue, green, gold, purple, gray */
+const projects = [
+  {
+    category:"main",
+    title:"Waltz No. 2 - Dimitri Shostakovich",
+    date:"June 13, 2026",
+    desc:"I fully recreated Dmitri Shostakovich’s Waltz No. 2 as an orchestral production.",
+    detail:"For this project, I fully recreated Dmitri Shostakovich's Waltz No. 2 as a complete MIDI orchestral production. Every instrument section including strings, woodwinds, brass, harp, and percussion, was programmed entirely from scratch with no live recordings involved.\n\nThe main challenge was making the MIDI production feel organic and lifelike, which required careful velocity shaping, dynamic automation, and instrument balancing throughout. I also handled the full mixing and mastering to ensure a polished final output.\n\nU can jump into .WAV files for the better audio & mixing quality",
+    cover:"Waltzno2.jpg",
+    media:[{label:"Audio", file:"WaltzNo2.1.wav"}],
+    link:"", tags:[["Orchestration","brown"],["Instrumental","gray"]]
+  },
+  {
+    category:"main",
+    title:"In Another Lifetime - Evelyn Kirana",
+    date:"June 13, 2026",
+    desc:"I worked as the arranger, building the entire music arrangement with full orchestral instrumentation.",
+    cover:"Inanoth.webp",
+    media:[{label:"Full song", file:"audio/in-another-lifetime.mp3"}],
+    link:"", tags:[["Orchestration","brown"],["Music Producer","blue"],["Arranger","brown"]]
+  },
+  {
+    category:"main",
+    title:"Let You Break My Heart Again - Laufey",
+    date:"June 13, 2026",
+    desc:"I took on the role of re-orchestrator and producer for this piece.",
+    cover:"laufe.webp",
+    media:[{label:"Full song", file:"FinalMaster.wav"}],
+    link:"", tags:[["Orchestration","brown"],["Music Producer","blue"]]
+  },
+  {
+    category:"main",
+    title:"Sempurnanya Aku - NPD",
+    date:"June 14, 2026",
+    desc:"A full instrumental cover of NPD’s “Sempurnanya Aku,” produced and arranged end to end.",
+    cover:"Npdd.jpg",
+    media:[{label:"Full song", file:"Instrument2.wav"}],
+    link:"", tags:[["Music Producer","blue"],["Arranger","brown"],["Instrumental","gray"]]
+  },
+
+  /* ---------- GUITAR (file ada di folder Guitar/) ---------- */
+  {
+    category:"guitar",
+    title:"Bossanova Improve",
+    date:"November 12, 2026",
+    desc:"Guitar improvisation over a bossa nova groove.",
+    cover:"Guitar/Bossanova Improve.mp4",
+    media:[{label:"Video", file:"Guitar/Bossanova Improve.mp4"}],
+    link:"", tags:[["Guitar","green"],["Improvisation","purple"]]
+  },
+  {
+    category:"guitar",
+    title:"Chopin",
+    date:"November 12, 2026",
+    desc:"A guitar rendition of Chopin’s music.",
+    cover:"Guitar/Chopin.mp4",
+    media:[{label:"Video", file:"Guitar/Chopin.mp4"}],
+    link:"", tags:[["Guitar","green"],["Cover","gray"]]
+  },
+  {
+    category:"guitar",
+    title:"Fly Me To The Moon",
+    date:"November 12, 2026",
+    desc:"A guitar rendition of the jazz standard “Fly Me To The Moon.”",
+    cover:"Guitar/Fly Me To The Moon.mp4",
+    media:[{label:"Video", file:"Guitar/Fly Me To The Moon.mp4"}],
+    link:"", tags:[["Guitar","green"],["Cover","gray"]]
+  },
+  {
+    category:"guitar",
+    title:"Guitar Improve 1",
+    date:"November 12, 2026",
+    desc:"Free guitar improvisation, take one.",
+    cover:"Guitar/Guitar Improve1.mp4",
+    media:[{label:"Video", file:"Guitar/Guitar Improve1.mp4"}],
+    link:"", tags:[["Guitar","green"],["Improvisation","purple"]]
+  },
+  {
+    category:"guitar",
+    title:"Guitar Improve 2",
+    date:"November 12, 2026",
+    desc:"Free guitar improvisation, take two.",
+    cover:"Guitar/Guitar Improve2.mp4",
+    media:[{label:"Video", file:"Guitar/Guitar Improve2.mp4"}],
+    link:"", tags:[["Guitar","green"],["Improvisation","purple"]]
+  },
+  {
+    category:"guitar",
+    title:"Lamp",
+    date:"November 12, 2026",
+    desc:"A guitar performance of “Lamp.”",
+    cover:"Guitar/Lamp.mp4",
+    media:[{label:"Video", file:"Guitar/Lamp.mp4"}],
+    link:"", tags:[["Guitar","green"]]
+  },
+
+  /* ---------- DUMMY PROJECT (file ada di folder Dummy/) ---------- */
+  {
+    category:"dummy",
+    title:"In The Pool",
+    date:"November 12, 2026",
+    desc:"A dummy project: In The Pool.",
+    cover:"Dummy/InThePool.mp4",
+    media:[{label:"Video", file:"Dummy/InThePool.mp4"}],
+    link:"", tags:[["Dummy","gray"]]
+  },
+  {
+    category:"dummy",
+    title:"Mantan Terindah",
+    date:"November 12, 2026",
+    desc:"A dummy project: Mantan Terindah.",
+    cover:"Dummy/MantanTerindah.mp4",
+    media:[{label:"Video", file:"Dummy/MantanTerindah.mp4"}],
+    link:"", tags:[["Dummy","gray"]]
+  },
+  {
+    category:"dummy",
+    title:"Poxa - Cortex",
+    date:"November 12, 2026",
+    desc:"A dummy project: Poxa - Cortex.",
+    cover:"Dummy/Poxa - Cortex.mp4",
+    media:[{label:"Video", file:"Dummy/Poxa - Cortex.mp4"}],
+    link:"", tags:[["Dummy","gray"]]
+  }
+];
+
+/* =====================================================
+   JANGAN UBAH DI BAWAH INI (kecuali paham)
+   ===================================================== */
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const isAudio = f => /\.(mp3|wav|m4a|ogg)$/i.test(f);
+const isVid = f => /\.(mp4|webm|mov)$/i.test(f || "");
+const url = f => esc(encodeURI(f));   /* aman untuk nama file yang pakai spasi */
+const tagHTML = (t,c) => `<span class="tag t-${esc(c)}">${esc(t)}</span>`;
+
+/* Thumbnail: gambar biasa, atau satu frame dari video */
+function coverHTML(src, at){
+  if(!src) return "";
+  return isVid(src)
+    ? `<video src="${url(src)}#t=${at || 1}" preload="metadata" muted playsinline tabindex="-1" onerror="this.remove()"></video>`
+    : `<img src="${url(src)}" alt="" loading="lazy" onerror="this.remove()">`;
+}
+
+/* Skills dan Tools */
+function renderSkills(set){
+  $("#skillGrid").innerHTML = skillData[set].map(s => `
+    <article class="card skill">
+      <div class="cover">${coverHTML(s.image)}</div>
+      <div class="body">
+        <h3>${s.icon} ${esc(s.title)}</h3>
+        <p class="desc">${esc(s.text)}</p>
+        <div class="tags">${tagHTML(s.tag,s.color)}</div>
+      </div>
+    </article>`).join("");
+}
+$("#skillTabs").addEventListener("click", e => {
+  const b = e.target.closest(".tab"); if(!b) return;
+  document.querySelectorAll("#skillTabs .tab").forEach(t => t.setAttribute("aria-selected", t === b));
+  renderSkills(b.dataset.set);
+});
+
+/* Kartu project */
+function renderProjects(cat){
+  const list = projects.map((p,i) => ({...p,i})).filter(p => p.category === cat);
+  $("#projectGrid").innerHTML = list.length ? list.map(p => `
+    <article class="card clickable${isVid(p.cover) ? " vid" : ""}" data-i="${p.i}" tabindex="0" role="button" aria-label="Buka ${esc(p.title)}">
+      <div class="cover">${coverHTML(p.cover, p.thumbAt)}</div>
+      <div class="body">
+        <h3>${esc(p.title)}</h3>
+        <div class="date">${esc(p.date)}</div>
+        <p class="desc">${esc(p.desc)}</p>
+        <div class="tags">${p.tags.map(t => tagHTML(t[0],t[1])).join("")}</div>
+      </div>
+    </article>`).join("") : `<p class="empty">Belum ada project di kategori ini.</p>`;
+}
+$("#catTabs").addEventListener("click", e => {
+  const b = e.target.closest(".tab"); if(!b) return;
+  document.querySelectorAll("#catTabs .tab").forEach(t => t.setAttribute("aria-selected", t === b));
+  renderProjects(b.dataset.cat);
+});
+
+/* Popup detail project */
+const modal = $("#modal"), stage = $("#mStage"), tiles = $("#mFiles");
+let lastCard = null, cur = null;
+function showFile(k){
+  const f = projects[cur].media[k];
+  tiles.querySelectorAll("button.tile").forEach((b,j) => b.setAttribute("aria-pressed", j === k));
+  stage.innerHTML = isAudio(f.file)
+    ? `<audio controls autoplay src="${url(f.file)}"></audio>`
+    : `<video controls autoplay playsinline src="${url(f.file)}"></video>`;
+}
+function openProject(i, card){
+  const p = projects[i]; cur = i; lastCard = card;
+  $("#mTitle").textContent = p.title;
+  $("#mDate").textContent = p.date;
+  $("#mDesc").textContent = p.detail || p.desc;
+  $("#mTags").innerHTML = p.tags.map(t => tagHTML(t[0],t[1])).join("");
+  /* banner hanya untuk cover gambar; cover video (vertikal) tidak dipakai sebagai banner */
+  const showBanner = p.cover && !isVid(p.cover);
+  $("#mBanner").hidden = !showBanner;
+  $("#mBanner").innerHTML = showBanner ? `<img src="${url(p.cover)}" alt="" onerror="this.remove()">` : "";
+  tiles.innerHTML = p.media.map((m,k) => `<button class="tile" data-k="${k}" aria-pressed="false"><span class="ic">${isAudio(m.file) ? "🎧" : "🎬"}</span>${esc(m.label)}</button>`).join("")
+    + (p.link ? `<a class="tile" href="${esc(p.link)}" target="_blank" rel="noopener"><span class="ic">📄</span>Google Drive</a>` : "");
+  $("#mFilesSec").hidden = !(p.media.length || p.link);
+  stage.innerHTML = "";
+  modal.classList.add("open");
+  modal.querySelector(".sheet").scrollTop = 0;
+  $("#mClose").focus();
+}
+function closeModal(){ modal.classList.remove("open"); stage.innerHTML = ""; if(lastCard) lastCard.focus(); }
+tiles.addEventListener("click", e => { const b = e.target.closest("button.tile"); if(b) showFile(+b.dataset.k); });
+$("#mClose").addEventListener("click", closeModal);
+modal.addEventListener("click", e => { if(e.target === modal) closeModal(); });
+document.addEventListener("keydown", e => { if(e.key === "Escape" && modal.classList.contains("open")) closeModal(); });
+
+const grid = $("#projectGrid");
+function openFromEvent(e){ const c = e.target.closest(".card.clickable"); if(c) openProject(+c.dataset.i, c); }
+grid.addEventListener("click", openFromEvent);
+grid.addEventListener("keydown", e => { if((e.key === "Enter" || e.key === " ") && e.target.classList.contains("card")){ e.preventDefault(); openFromEvent(e); } });
+
+renderSkills("skills");
+renderProjects("main");
+</script>
+</body>
+</html>
